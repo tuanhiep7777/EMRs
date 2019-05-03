@@ -7,7 +7,8 @@ let UserSchema = new mongoose.Schema(
         email: String, // đăng nhập bằng email
         password: String,
         token: String,
-
+        
+        profilePicture: String, // url
         name: String,
         dateOfBirth: String,
         nationality: String, // quốc tịch
