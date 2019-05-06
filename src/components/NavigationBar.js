@@ -44,7 +44,7 @@ class NavigationBar extends Component {
                                     role="button"
                                     aria-haspopup="true"
                                     aria-expanded="false">
-                                    <i class="far fa-user"></i> Wayne Rooney
+                                    <i className="far fa-user"></i> Wayne Rooney
                                 </a>
                                 <ul className="dropdown-menu">
                                     <li><a href="#">Thông tin cá nhân</a></li>

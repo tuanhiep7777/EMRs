@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import * as actions from '../redux/actions/index';
+import { getUserInfo } from '../redux/actions/index';
 
 class User extends Component {
+
+    componentWillMount() {
+        this.props.getUserInfo(this.props.userInfo.email);
+        
+    }
 
     render() {
         return (
@@ -44,6 +51,23 @@ var mapStateToProps = state => {
     return {
         userInfo: state.userInfo
     }
-}
+};
 
-export default connect(mapStateToProps, null)(User);
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         getUserInfo: email => {
+//             dispatch(actions.getUserInfo(email));
+//         }
+//     }
+// };
+
+// export const getUserInfo = (email) => {
+//     return (dispatch) => {
+//         dispatch({
+//             type: types.GET_USER_INFO,
+//             userInfo: response.data
+//         }
+//     }
+// }
+
+export default connect(mapStateToProps, { getUserInfo })(User);
