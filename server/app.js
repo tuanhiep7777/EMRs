@@ -34,12 +34,12 @@ let port = 5000 || process.env.PORT
 routes(router)
 
 /** set up middlewares */
-app.use(cors())
-app.use(bodyParser.json())
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(helmet())
 
-app.use('/api', router)
-
+app.use('/api', router);
 /** start server */
 app.listen(port, () => {
     console.log(`Server started at port: ${port}`);

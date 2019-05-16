@@ -10,4 +10,8 @@ module.exports = (router) => {
     router.route('/userinfo').get(usercontroller.getUserInfo);
 
     router.route('/hihi').get(usercontroller.getHihi);
+    //router.route('/asdf').get(usercontroller.asdf);
+
+    router.route('/signup').post(usercontroller.user_signup);
+    //router.post("/login", usercontroller.user_login);
 }
