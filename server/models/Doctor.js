@@ -7,7 +7,6 @@ let DoctorSchema = new mongoose.Schema(
     {
         email: String, // đăng nhập bằng email
         password: String,
-        token: String,
 
         name: String,
         phoneNumber: String,
