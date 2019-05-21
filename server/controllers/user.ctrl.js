@@ -98,14 +98,13 @@ module.exports = {
                             })
                         }
                         if (result) {
-                            const token = jwt.sign({email: user[0].email, _id: user[0]._id}, "secret", {expiresIn: "1h"});
+
                             res.json({
                                 code: "1",
                                 message: "OK",
                                 data: {
                                     _id: user[0]._id,
                                     email: user[0].email,
-                                    token: token,
                                     profilePicture: user[0].profilePicture
                                 }
                             })
@@ -150,20 +149,7 @@ module.exports = {
     },
 
     change_password: (req, res, next) => {
-        var email;
-        jwt.verify(req.body.token, "secret", (err, decode) => {
-            if (err) {
-                console.log(err);
-                res.json({
-                    code: "0",
-                    message: "Error"
-                })
-            } else {
-                email = decode.email;
-            }
-        })
-
-        User.find({email: email})
+        User.find({email: req.body.email})
             .exec()
             .then( user =>{
                 if (user.length < 1) {
@@ -192,17 +178,21 @@ module.exports = {
                                         data: {}
                                     })
                                 }
-                                const token = jwt.sign({email: user[0].email, user_id: user[0]._id}, "secret", {expiresIn: "1h"});
                                 user[0].password = hash;
                                 user[0].save().then(result => {
                                     res.json({
                                         code: "1",
                                         message: "OK",
                                         data: {
-                                            _id: user[0]._id, 
                                             email: user[0].email,
-                                            token: token, 
-                                            profilePicture: user[0].profilePicture
+                                            profilePicture: user[0].profilePicture,
+                                            name: user[0].name,
+                                            dateOfBirth: user[0].dateOfBirth,
+                                            nationality: user[0].nationality,
+                                            nationalIDNumber: user[0].nationalIDNumber,
+                                            healthInsuranceIDNumber: user[0].healthInsuranceIDNumber,
+                                            address: user[0].address,
+                                            phoneNumber: user[0].phoneNumber
                                         }
                                     })
                                 })
@@ -227,21 +217,8 @@ module.exports = {
     },
 
     set_user_info: (req, res, next) => {
-        var email;
-        jwt.verify(req.body.token, "secret", (err, decode ) => {
-            if (err) {
-                console.log(err);
-                res.json({
-                    code: "0",
-                    message: "Error"
-                })
-            }else {
-                email = decode.email;
-            }
-        });
-        console.log(req.files);
         User.findOneAndUpdate(
-            {email: email}, 
+            {email: req.body.email}, 
             {
                 email: req.body.email,
                 profilePicture: req.files.profilePicture[0].path,

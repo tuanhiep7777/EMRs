@@ -43,8 +43,6 @@ module.exports = (router) => {
     
     router.post("/login", usercontroller.user_login);
 
-    //router.detele('/:user_id', checkAuth, usercontroller.user_delete);
-
     router.post("/change_password", usercontroller.change_password);
 
     router.post("/set_user_info", upload.fields([
